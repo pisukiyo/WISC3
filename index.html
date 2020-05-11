@@ -187,7 +187,7 @@
     */
     function 差分描画(キャンバス, IQ情報1, IQ情報2){
         キャンバス.beginPath();
-
+         if(IQ情報1.IQ<X軸最小 || IQ情報1.IQ>X軸最大 || IQ情報2.IQ<X軸最小 || IQ情報2.IQ>X軸最大){return;}
         //線
         キャンバス.strokeStyle="#000000";
         キャンバス.lineWidth=2;
