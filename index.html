@@ -2,20 +2,20 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WISC－Ⅲグラフ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <title>WISC－Ⅲのグラフ</title>
 </head>
 <body>
-    <h1>WISC－Ⅲグラフ化</h1>
+    <h1>WISC－Ⅲのグラフ</h1>
     <p>値を入力するとグラフが変化します。</p>
 
     <hr>
     <h2>ＩＱ</h2>
     <table>
     <tr>
-        <th bgcolor="#FF0000"><font color="#FFFFFF">言語性</br>(VIQ)</font></th>
-        <th bgcolor="#0000FF"><font color="#FFFFFF">動作性</br>(PIQ)</font></th>
-        <th bgcolor="#00FF00"><font color="#FFFFFF">全検査</br>(FIQ)</font></th>
+        <th bgcolor="#FF0000"><font color="#FFFFFF">言語性IQ</br>(VIQ)</font></th>
+        <th bgcolor="#0000FF"><font color="#FFFFFF">動作性IQ</br>(PIQ)</font></th>
+        <th bgcolor="#00FF00"><font color="#FFFFFF">全IQ</br>(FIQ)</font></th>
     </tr>
     <tr>
         <td><input type="text" onChange="main()" size="5" maxlength=3 oninput="value = value.replace(/[^0-9]+/i,'');" id="VIQ" value="115"></td>
@@ -32,18 +32,55 @@
         <tr>
             <th bgcolor="#FF5500"><font color="#FFFFFF">言語理解</br>(VC)</font></th>
             <th bgcolor="#5500FF"><font color="#FFFFFF">知覚統合</br>(PO)</font></th>
-            <th bgcolor="#FF0055"><font color="#FFFFFF">作動記憶</br>(WM)</font></th>
+            <th bgcolor="#FF0055"><font color="#FFFFFF">注意記憶</br>(FD)</font></th>
             <th bgcolor="#0055FF"><font color="#FFFFFF">処理速度</br>(PS)</font></th>
         </tr>
         <tr>
             <td><input type="text" onChange="main()" size="5" maxlength=3 oninput="value = value.replace(/[^0-9]+/i,'');" id="VC" value="112"></td>
             <td><input type="text" onChange="main()" size="5" maxlength=3 oninput="value = value.replace(/[^0-9]+/i,'');" id="PO" value="132"></td>
-            <td><input type="text" onChange="main()" size="5" maxlength=3 oninput="value = value.replace(/[^0-9]+/i,'');" id="WM" value="115"></td>
+            <td><input type="text" onChange="main()" size="5" maxlength=3 oninput="value = value.replace(/[^0-9]+/i,'');" id="FD" value="115"></td>
             <td><input type="text" onChange="main()" size="5" maxlength=3 oninput="value = value.replace(/[^0-9]+/i,'');" id="PS" value="113"></td>
         </tr>
     </table>
-<canvas id="GCCanvas" width="290" height="290"></canvas>
+    <canvas id="GCCanvas" width="290" height="290"></canvas>
 
+
+    <hr>
+    <h2>WISC-Ⅲで算出される能力</h2>
+    <ul>
+        <li>全IQ(FIQ)：総合的な能力</li>
+        <li>言語性IQ(VIQ)：結晶性知能。学校で受けた教育や、仕事・社会生活の中で得た経験に基づいた知能</li>
+        <li>動作性IQ(PIQ)：流動性知能。新しいことを学習する知能や、新しい環境に適応するための問題解決能力</li>
+        <li>言語理解(VC)：言語理解、知識、概念化</li>
+        <li>知覚統合(PO)：見て記憶したり判断したりする能力</li>
+        <li>注意記憶(FD)：聴いて記憶したり判断したりする能力</li>
+        <li>処理速度(PS)：複数の情報を処理する能力</li>
+    </ul>
+
+
+    <hr>
+    <h2>障害特性から予測される検査結果</h2>
+    <ul>
+    <li>学習障害(LD)：能力間のばらつき
+        <ul>
+            <li>言語性IQ(VIQ)、動作性IQ(PIQ)のディスクレパンシー(不一致)</li>
+            <li>知的な遅れが見られない</li>
+        </ul>
+    </li>
+    <li>注意欠陥・多動性障害(ADHD)：注意記憶(FD)の弱さ</li>
+    <li>広汎性発達障害(PDD):知覚統合(PO)の強さ、処理速度(PS)の弱さ
+        <ul>
+            <li>高機能自閉症(HFA)：言語性IQ(VIQ)＜動作性IQ(PIQ)</li>
+            <li>アスペルガー障害(Asp)：言語性IQ(VIQ)＞動作性IQ(PIQ)、注意記憶(FD)の強さ</li>
+        </ul>
+    </li>
+    <li>知的障害(MR)：全IQ(FIQ)未満</li>
+    </ul>
+    <strong>※知能検査結果からだけで判断はできません</strong>
+    <hr>
+    
+    
+    
 <script>
     let xw=290,xbias=5;
     let yh=290,ybias=5;
@@ -243,9 +280,9 @@
 
         // 値取得
         let IQ配列 = new Array(
-                {IQ:document.getElementById("VIQ").value, タイトル: `言語性`, 色:`#FF0000`}
-                , {IQ:document.getElementById("PIQ").value, タイトル: `動作性`, 色:`#0000FF`}
-                , {IQ:document.getElementById("FIQ").value, タイトル: `全検査`, 色:`#00FF00`}
+                {IQ:document.getElementById("VIQ").value, タイトル: `言語性IQ`, 色:`#FF0000`}
+                , {IQ:document.getElementById("PIQ").value, タイトル: `動作性IQ`, 色:`#0000FF`}
+                , {IQ:document.getElementById("FIQ").value, タイトル: `全IQ`, 色:`#00FF00`}
             );
         // 描画
         IQ描画(iqCanvas,IQ配列);
@@ -263,7 +300,7 @@
         let 群指数配列 = new Array(
                 {IQ:document.getElementById("VC").value, タイトル: `言語理解`, 色:`#FF5500`}
                 , {IQ:document.getElementById("PO").value, タイトル: `知覚統合`, 色:`#5500FF`}
-                , {IQ:document.getElementById("WM").value, タイトル: `作動記憶`, 色:`#FF0055`}
+                , {IQ:document.getElementById("FD").value, タイトル: `注意記憶`, 色:`#FF0055`}
                 , {IQ:document.getElementById("PS").value, タイトル: `処理速度`, 色:`#0055FF`}
             );
         // 描画
